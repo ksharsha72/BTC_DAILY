@@ -13,7 +13,7 @@ class Decision_Tree:
                 proportion  = len(subset)/len(data)
                 entropy_feature += proportion * self.entropy(subset[label])
 
-                info_gain = self.information_gain(data,feature,label)
+            info_gain = self.information_gain(data,feature,label)
 
     
     def entropy(self,labels):
@@ -36,10 +36,10 @@ class Decision_Tree:
             value = data[label].unique()[0]
             return str(value)
         elif len(data.columns) == 1:
-            value = data[label].value_counts().idmax()
+            value = data[label].value_counts().idxmax()
             return str(value)
         else:
-            best_feature  = max(data.columns[:-1],key= lambda feature:self.information_gain(data.feature,label))
+            best_feature  = max(data.columns[:-1],key= lambda feature:self.information_gain(data,feature,label))
             tree = {best_feature:{}}
             for value in data[best_feature].unique():
                 subset = data[data[best_feature]==value]
